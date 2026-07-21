@@ -48,7 +48,193 @@ setcpm(36)
 Lo que equivale aproximadamente a **144 BPM**, un tempo adecuado para música electrónica y synthwave.
 
 ---
+# Codigo
 
+```js
+//--------------------------------------------------------
+// CYBERPUNK LIVE CODING
+//--------------------------------------------------------
+
+setcpm(36) // 144 BPM
+
+//--------------------------------------------------------
+// MEZCLADOR
+//--------------------------------------------------------
+
+const DRUMS = 1
+const BASS = 1
+const CHORDS = 1
+const LEAD = 1
+const ARP = 0
+const PAD = 0
+
+//--------------------------------------------------------
+// PARÁMETROS MODIFICABLES
+//--------------------------------------------------------
+
+const OCTAVE = 0
+const TRANSPOSE = 0
+
+//--------------------------------------------------------
+// ESCALA
+//--------------------------------------------------------
+
+const prog =
+"<[e2] [c2] [g1] [d2]>"
+
+const chords =
+"<[e3 g3 b3 d4] [c3 e3 g3 b3] [g2 b2 d3 f3] [d3 f3 a3 c4]>"
+
+//--------------------------------------------------------
+// BAJO
+//--------------------------------------------------------
+
+$bass:
+
+note(prog.transpose(TRANSPOSE))
+
+.sound("supersaw")
+
+.lpf(slider(700,200,2500))
+
+.attack(0.02)
+
+.release(0.35)
+
+.room(.3)
+
+.postgain(BASS?0.35:0)
+
+
+//--------------------------------------------------------
+// ACORDES
+//--------------------------------------------------------
+
+$chords:
+
+note(chords.transpose(TRANSPOSE))
+
+.sound("gm_epiano1")
+
+.attack(slider(.18,0,1))
+
+.release(1)
+
+.room(slider(1.2,0,3))
+
+.lpf(slider(1600,400,5000))
+
+.postgain(CHORDS?0.45:0)
+
+
+//--------------------------------------------------------
+// MELODÍA PRINCIPAL
+//--------------------------------------------------------
+
+let lead =
+
+"<[e5 g5 b5 g5] [e5 a5 g5 e5] [d5 f#5 a5 g5] [b4 d5 e5 g5]>"
+
+$lead:
+
+note(lead
+.transpose(OCTAVE*12+TRANSPOSE))
+
+.sound("sawtooth")
+
+.attack(slider(.04,0,.4))
+
+.decay(slider(.35,.1,1))
+
+.sustain(.2)
+
+.release(.25)
+
+.delay(slider(.25,0,.7))
+
+.room(slider(1.4,0,3))
+
+.lpf(slider(2200,500,5000))
+
+.postgain(LEAD?0.55:0)
+
+
+//--------------------------------------------------------
+// ARPEGIO
+//--------------------------------------------------------
+
+let arp =
+
+"<[e5 b5 g5 b5] [c6 g5 e5 g5] [d5 a5 f#5 a5] [b5 g5 d5 g5]>"
+
+$arp:
+
+note(arp.transpose(TRANSPOSE))
+
+.sound("triangle")
+
+.attack(.01)
+
+.release(.15)
+
+.delay(.35)
+
+.room(1.5)
+
+.lpf(slider(2800,800,6000))
+
+.postgain(ARP?0.25:0)
+
+
+//--------------------------------------------------------
+// PAD
+//--------------------------------------------------------
+
+$pad:
+
+note(chords.transpose(12+TRANSPOSE))
+
+.sound("sawtooth")
+
+.attack(2)
+
+.release(3)
+
+.room(3)
+
+.lpf(slider(900,300,2000))
+
+.postgain(PAD?0.2:0)
+
+
+//--------------------------------------------------------
+// BATERÍA
+//--------------------------------------------------------
+
+$drums:
+
+stack(
+
+s("bd")
+.beat("0,4,8,12",16),
+
+s("cp")
+.beat("4,12",16),
+
+s("hh")
+.beat("0,2,4,6,8,10,12,14",16),
+
+s("oh")
+.beat("7,15",16)
+
+)
+
+.bank("RolandTr909")
+
+.postgain(DRUMS?0.9:0)
+```
+
+---
 #  Mezclador
 
 Una de las primeras decisiones fue crear un pequeño mezclador utilizando variables.
