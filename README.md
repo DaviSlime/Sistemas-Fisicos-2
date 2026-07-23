@@ -12,7 +12,7 @@
 
 ---
 
-#  Introducción
+##  Introducción
 
 El proyecto consiste en desarrollar una composición interactiva mediante **Strudel**, donde la música no es una secuencia estática, sino un sistema que puede modificarse mientras está sonando.
 
@@ -29,7 +29,7 @@ Cada capa puede activarse o desactivarse durante la ejecución para construir la
 
 ---
 
-#  Objetivos
+###  Objetivos
 
 - Crear una pieza con varias capas sonoras.
 - Experimentar con Live Coding.
@@ -39,7 +39,7 @@ Cada capa puede activarse o desactivarse durante la ejecución para construir la
 
 ---
 
-#  Configuración inicial
+###  Configuración inicial
 
 La velocidad de la composición se estableció en:
 
@@ -50,7 +50,7 @@ setcpm(36)
 Lo que equivale aproximadamente a **144 BPM**, un tempo adecuado para música electrónica y synthwave.
 
 ---
-# Codigo
+### Codigo
 
 ```js
 //--------------------------------------------------------
@@ -237,7 +237,7 @@ s("oh")
 ```
 
 ---
-#  Mezclador
+###  Mezclador
 
 Una de las primeras decisiones fue crear un pequeño mezclador utilizando variables.
 
@@ -270,7 +270,7 @@ y comenzará a sonar inmediatamente.
 
 ---
 
-#  Bajo
+###  Bajo
 
 El bajo sigue las fundamentales de la progresión armónica.
 
@@ -288,7 +288,7 @@ Durante la interpretación es posible abrir o cerrar el filtro para modificar el
 
 ---
 
-#  Armonía
+###  Armonía
 
 La armonía utiliza acordes menores con séptimas para producir un ambiente oscuro característico del estilo cyberpunk.
 
@@ -311,7 +311,7 @@ Todo ello controlable mediante sliders.
 
 ---
 
-#  Melodía
+###  Melodía
 
 La melodía principal fue diseñada como un patrón fácilmente modificable.
 
@@ -336,7 +336,7 @@ genera una variación inmediata.
 
 ---
 
-#  Arpegio
+###  Arpegio
 
 El arpegio añade movimiento constante al fondo.
 
@@ -353,7 +353,7 @@ Esta capa puede activarse únicamente en determinadas partes de la interpretaci�
 
 ---
 
-#  Pad Atmosférico
+###  Pad Atmosférico
 
 El pad utiliza notas largas con mucho ataque y reverb.
 
@@ -363,7 +363,7 @@ Puede permanecer apagado durante gran parte de la pieza y activarse únicamente 
 
 ---
 
-#  Percusión
+###  Percusión
 
 La batería utiliza el banco Roland TR-909.
 
@@ -380,11 +380,11 @@ Los distintos instrumentos siguen patrones independientes que pueden modificarse
 
 ---
 
-#  Controles en Tiempo Real
+###  Controles en Tiempo Real
 
 Uno de los aspectos más importantes del Live Coding es modificar parámetros mientras la música continúa sonando.
 
-## Abrir el filtro
+#### Abrir el filtro
 
 ```javascript
 .lpf(slider(1200,300,5000))
@@ -394,7 +394,7 @@ Permite transformar progresivamente el timbre del sintetizador.
 
 ---
 
-## Cambiar la octava
+### Cambiar la octava
 
 Toda la melodía puede desplazarse una octava.
 
@@ -410,7 +410,7 @@ const OCTAVE = -1
 
 ---
 
-## Transportar toda la pieza
+### Transportar toda la pieza
 
 Es posible cambiar instantáneamente la tonalidad.
 
@@ -428,7 +428,7 @@ Esto afecta simultáneamente a bajo, armonía, melodía y arpegios.
 
 ---
 
-## Cambiar sintetizadores
+### Cambiar sintetizadores
 
 Durante la interpretación también pueden probarse distintos sonidos.
 
@@ -462,7 +462,7 @@ Cada sintetizador cambia completamente el color de la composición.
 
 La presentación puede construirse de forma progresiva.
 
-## Inicio
+### Inicio
 
 Solo armonía.
 
@@ -472,7 +472,7 @@ CHORDS = 1
 
 ---
 
-## Segunda sección
+### Segunda sección
 
 Se incorpora el bajo.
 
@@ -482,7 +482,7 @@ BASS = 1
 
 ---
 
-## Tercera sección
+### Tercera sección
 
 Entra la batería.
 
@@ -492,7 +492,7 @@ DRUMS = 1
 
 ---
 
-## Cuarta sección
+### Cuarta sección
 
 Comienza la melodía principal.
 
@@ -502,7 +502,7 @@ LEAD = 1
 
 ---
 
-## Quinta sección
+### Quinta sección
 
 Se añade el arpegio.
 
@@ -512,7 +512,7 @@ ARP = 1
 
 ---
 
-## Clímax
+### Clímax
 
 Se activa el pad.
 
@@ -522,7 +522,7 @@ PAD = 1
 
 ---
 
-## Final
+### Final
 
 Reducir el filtro.
 
@@ -534,7 +534,7 @@ Volver a introducir la batería para cerrar la interpretación.
 
 ---
 
-#  Experimentación
+##  Experimentación
 
 Durante el desarrollo se realizaron distintas pruebas modificando:
 
@@ -552,7 +552,7 @@ Esto permitió comprobar cómo pequeñas modificaciones producen cambios signifi
 
 ---
 
-#  Aprendizajes
+##  Aprendizajes
 
 A través de este proyecto fue posible comprender que el **Live Coding** no consiste únicamente en programar música, sino en interpretar código como si fuera un instrumento musical.
 
@@ -560,7 +560,7 @@ La organización modular mediante capas independientes facilita experimentar con
 
 ---
 
-#  Tecnologías utilizadas
+###  Tecnologías utilizadas
 
 - **Strudel**
 - JavaScript
@@ -569,6 +569,6 @@ La organización modular mediante capas independientes facilita experimentar con
 
 ---
 
-#  Resultado
+###  Resultado
 
 El resultado final es una composición de estilo **cyberpunk**, con una estructura flexible y preparada para Live Coding, donde cada elemento puede modificarse en tiempo real para crear nuevas variaciones durante la interpretación.
