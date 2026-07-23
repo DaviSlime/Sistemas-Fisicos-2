@@ -2,7 +2,7 @@
 
 ## Bitacora de investigación David Vanegas Londoño
 
-# Fase de investigación
+# <Fase de investigación>
 
 # 🎵 Cyberpunk Live Coding en Strudel
 
