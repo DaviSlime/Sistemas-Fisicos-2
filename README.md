@@ -2,6 +2,8 @@
 
 ## Bitacora de investigación David Vanegas Londoño
 
+#Fase de investigación
+
 # 🎵 Cyberpunk Live Coding en Strudel
 
 > Proyecto académico de composición mediante **Live Coding** utilizando **Strudel**.
