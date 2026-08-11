@@ -572,3 +572,415 @@ La organización modular mediante capas independientes facilita experimentar con
 ###  Resultado
 
 El resultado final es una composición de estilo **cyberpunk**, con una estructura flexible y preparada para Live Coding, donde cada elemento puede modificarse en tiempo real para crear nuevas variaciones durante la interpretación.
+
+
+
+## parte 2
+
+```js
+//--------------------------------------------------------
+// CYBERPUNK LIVE CODING
+// STRUDEL → OSC → TOUCHDESIGNER
+//--------------------------------------------------------
+
+setcpm(36) // 144 BPM
+
+
+//--------------------------------------------------------
+// PARÁMETRO OSC PARA TOUCHDESIGNER
+//--------------------------------------------------------
+
+const { visualid } = createParams('visualid')
+
+
+//--------------------------------------------------------
+// MEZCLADOR
+//--------------------------------------------------------
+
+const DRUMS = 1
+const BASS = 1
+const CHORDS = 1
+const LEAD = 1
+const ARP = 0
+const PAD = 0
+
+
+//--------------------------------------------------------
+// PARÁMETROS MODIFICABLES
+//--------------------------------------------------------
+
+const OCTAVE = 0
+const TRANSPOSE = 0
+
+
+//--------------------------------------------------------
+// ESCALA / PROGRESIÓN
+//--------------------------------------------------------
+
+const prog =
+"<[e2] [c2] [g1] [d2]>"
+
+const chords =
+"<[e3 g3 b3 d4] [c3 e3 g3 b3] [g2 b2 d3 f3] [d3 f3 a3 c4]>"
+
+
+//========================================================
+// BAJO
+//========================================================
+
+const bass =
+
+note(
+  prog.transpose(TRANSPOSE)
+)
+
+.sound("supersaw")
+
+.lpf(
+  slider(700,200,2500)
+)
+
+.attack(0.02)
+
+.release(0.35)
+
+.room(.3)
+
+.postgain(
+  BASS ? 0.35 : 0
+)
+
+// TOUCHDESIGNER
+.visualid("bass")
+
+
+//========================================================
+// ACORDES
+//========================================================
+
+const harmony =
+
+note(
+  chords.transpose(TRANSPOSE)
+)
+
+.sound("gm_epiano1")
+
+.attack(
+  slider(.18,0,1)
+)
+
+.release(1)
+
+.room(
+  slider(1.2,0,3)
+)
+
+.lpf(
+  slider(1600,400,5000)
+)
+
+.postgain(
+  CHORDS ? 0.45 : 0
+)
+
+// TOUCHDESIGNER
+.visualid("harmony")
+
+
+//========================================================
+// MELODÍA
+//========================================================
+
+const melodyPattern =
+
+"<[e5 g5 b5 g5] [e5 a5 g5 e5] [d5 f#5 a5 g5] [b4 d5 e5 g5]>"
+
+
+const melody =
+
+note(
+  melodyPattern
+  .transpose(OCTAVE * 12 + TRANSPOSE)
+)
+
+.sound("sawtooth")
+
+.attack(
+  slider(.04,0,.4)
+)
+
+.decay(
+  slider(.35,.1,1)
+)
+
+.sustain(.2)
+
+.release(.25)
+
+.delay(
+  slider(.25,0,.7)
+)
+
+.room(
+  slider(1.4,0,3)
+)
+
+.lpf(
+  slider(2200,500,5000)
+)
+
+.postgain(
+  LEAD ? 0.55 : 0
+)
+
+// TOUCHDESIGNER
+.visualid("melody")
+
+
+//========================================================
+// LEAD
+//========================================================
+
+
+const leadPattern =
+
+"<[b5 e6 g6 e6] [g5 c6 e6 c6] [a5 d6 f#6 d6] [g5 b5 e6 b5]>"
+
+
+const lead =
+
+note(
+  leadPattern
+  .transpose(OCTAVE * 12 + TRANSPOSE)
+)
+
+.sound("sawtooth")
+
+.attack(
+  slider(.02,0,.25)
+)
+
+.decay(
+  slider(.25,.05,.8)
+)
+
+.sustain(.15)
+
+.release(.2)
+
+.delay(
+  slider(.3,0,.7)
+)
+
+.room(
+  slider(1.2,0,3)
+)
+
+.lpf(
+  slider(3000,800,6000)
+)
+
+.postgain(
+  LEAD ? 0.30 : 0
+)
+
+// TOUCHDESIGNER
+.visualid("lead")
+
+
+//========================================================
+// ARPEGIO
+//========================================================
+
+const arpPattern =
+
+"<[e5 b5 g5 b5] [c6 g5 e5 g5] [d5 a5 f#5 a5] [b5 g5 d5 g5]>"
+
+
+const arp =
+
+note(
+  arpPattern.transpose(TRANSPOSE)
+)
+
+.sound("triangle")
+
+.attack(.01)
+
+.release(.15)
+
+.delay(.35)
+
+.room(1.5)
+
+.lpf(
+  slider(2800,800,6000)
+)
+
+.postgain(
+  ARP ? 0.25 : 0
+)
+
+// TOUCHDESIGNER
+.visualid("arp")
+
+
+//========================================================
+// PAD
+//========================================================
+//
+// El PAD comparte la familia armónica,
+// pero sigue siendo un evento separado.
+//========================================================
+
+const pad =
+
+note(
+  chords.transpose(12 + TRANSPOSE)
+)
+
+.sound("sawtooth")
+
+.attack(2)
+
+.release(3)
+
+.room(3)
+
+.lpf(
+  slider(900,300,2000)
+)
+
+.postgain(
+  PAD ? 0.2 : 0
+)
+
+// TOUCHDESIGNER
+.visualid("harmony")
+
+
+//========================================================
+// BATERÍA
+//========================================================
+
+
+//--------------------------------------------------------
+// KICK
+//--------------------------------------------------------
+
+const drum_bd =
+
+s("bd")
+  .beat("0,4,8,12",16)
+  .bank("RolandTr909")
+  .postgain(DRUMS ? 0.9 : 0)
+  .visualid("drum_bd")
+
+
+//--------------------------------------------------------
+// CLAP
+//--------------------------------------------------------
+
+const drum_cp =
+
+s("cp")
+  .beat("4,12",16)
+  .bank("RolandTr909")
+  .postgain(DRUMS ? 0.9 : 0)
+  .visualid("drum_cp")
+
+
+//--------------------------------------------------------
+// HI-HAT CERRADO
+//--------------------------------------------------------
+
+const drum_hh =
+
+s("hh")
+  .beat("0,2,4,6,8,10,12,14",16)
+  .bank("RolandTr909")
+  .postgain(DRUMS ? 0.9 : 0)
+  .visualid("drum_hh")
+
+
+//--------------------------------------------------------
+// HI-HAT ABIERTO
+//--------------------------------------------------------
+
+const drum_oh =
+
+s("oh")
+  .beat("7,15",16)
+  .bank("RolandTr909")
+  .postgain(DRUMS ? 0.9 : 0)
+  .visualid("drum_oh")
+
+
+//========================================================
+// AUDIO + OSC → TOUCHDESIGNER
+//========================================================
+
+$:stack(
+
+  //------------------------------------------------------
+  // DRUMS
+  //------------------------------------------------------
+
+  drum_bd,
+  drum_bd.osc(),
+
+  drum_cp,
+  drum_cp.osc(),
+
+  drum_hh,
+  drum_hh.osc(),
+
+  drum_oh,
+  drum_oh.osc(),
+
+
+  //------------------------------------------------------
+  // BASS
+  //------------------------------------------------------
+
+  bass,
+  bass.osc(),
+
+
+  //------------------------------------------------------
+  // HARMONY
+  //------------------------------------------------------
+
+  harmony,
+  harmony.osc(),
+
+  pad,
+  pad.osc(),
+
+
+  //------------------------------------------------------
+  // MELODY
+  //------------------------------------------------------
+
+  melody,
+  melody.osc(),
+
+
+  //------------------------------------------------------
+  // ARPEGGIO
+  //------------------------------------------------------
+
+  arp,
+  arp.osc(),
+
+
+  //------------------------------------------------------
+  // LEAD
+  //------------------------------------------------------
+
+  lead,
+  lead.osc()
+
+)
+```
