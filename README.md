@@ -575,8 +575,9 @@ El resultado final es una composición de estilo **cyberpunk**, con una estructu
 
 
 
-## parte 2
+## Entrega 2
 
+### Código Strudel
 ```js
 //--------------------------------------------------------
 // CYBERPUNK LIVE CODING
@@ -984,3 +985,7 @@ $:stack(
 
 )
 ```
+
+<img width="1918" height="861" alt="image" src="https://github.com/user-attachments/assets/31ab2234-218f-48e8-bb6f-e5654839f4ad" />
+
+como se ve en la imagen ahí se denota el trabajo y resultado de la experiencia sonora en Touch.
