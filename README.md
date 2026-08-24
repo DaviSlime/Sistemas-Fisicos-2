@@ -989,3 +989,10 @@ $:stack(
 <img width="1918" height="861" alt="image" src="https://github.com/user-attachments/assets/31ab2234-218f-48e8-bb6f-e5654839f4ad" />
 
 como se ve en la imagen ahí se denota el trabajo y resultado de la experiencia sonora en Touch.
+
+
+
+# Entrega 3
+
+## el codigo de strudel es el mismo pero si se descargan los archivos de Touch se muestra como funcionan los controles 
+
