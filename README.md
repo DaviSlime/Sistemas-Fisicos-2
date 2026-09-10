@@ -996,3 +996,520 @@ como se ve en la imagen ahí se denota el trabajo y resultado de la experiencia 
 
 ## el codigo de strudel es el mismo pero si se descargan los archivos de Touch se muestra como funcionan los controles 
 
+
+# Proyecto estaciones en el mar
+
+<img width="1682" height="808" alt="image" src="https://github.com/user-attachments/assets/0675cd1d-60b2-41d6-a94d-108697f2b7e3" />
+
+Codigos de las estaciones:
+
+VERANO:
+
+```js
+setcpm(132/4)
+
+stack(
+  // 🌊 Olas / ambiente marino
+  note("<[c4,e4,g4,b4] [d4,f4,a4,c5]>")
+    .s("sawtooth")
+    .lpf(sine.range(700,2200).slow(4))
+    .gain(.16)
+    .room(.7),
+
+  // ☀️ Melodía tropical principal
+  note("e5 g5 a5 b5 a5 g5 e5 d5 e5 g5 a5 c6 b5 a5 g5 e5")
+    .s("square")
+    .decay(.12)
+    .sustain(.15)
+    .release(.08)
+    .gain(.24)
+    .pan(sine.range(-.7,.7).slow(2)),
+
+  // 🌴 Bajo tropical
+  note("e2 e2 g2 a2 ~ a2 g2 e2 d2 d2 f2 a2 g2 e2")
+    .s("sawtooth")
+    .lpf(700)
+    .decay(.2)
+    .sustain(.35)
+    .gain(.38),
+
+  // 🥁 Kick
+  s("bd*4")
+    .gain(.8),
+
+  // 🪘 Percusión con mucho movimiento
+  s("~ cp ~ cp ~ cp [cp cp] ~")
+    .gain(.55),
+
+  s("hh*8")
+    .gain(.32)
+    .pan(sine.range(-1,1).fast(2)),
+
+  // 🌴 Shaker / sensación de baile
+  s("[~ sd] [sd ~] [~ sd] [sd sd]")
+    .gain(.28),
+
+  // ✨ Brillos como gotas de agua
+  note("c6 e6 g6 b6")
+    .s("triangle")
+    .delay(.35)
+    .room(.8)
+    .gain(.12)
+)
+
+```
+
+PRIMAVERA:
+
+```js
+setcpm(72/4)
+
+stack(
+
+  // 🌸 BASE PRINCIPAL — tu idea original
+  note("<c4M d4m e4m f4M>")
+    .s("triangle")
+    .slow(8)
+    .room(0.8)
+    .lpf(1500)
+    .gain(.30),
+
+  note("[c5 e5 g5 a5]")
+    .s("kalimba")
+    .slow(2)
+    .delay(0.5)
+    .room(0.8)
+    .gain(.20),
+
+
+  // 🌊 OLEAJE — notas largas que acompañan la armonía
+  note("<c3 g3 e3 g3 d3 a3 f3 a3>")
+    .s("sine")
+    .slow(8)
+    .attack(1)
+    .release(2)
+    .room(1)
+    .gain(.10)
+    .pan(sine.range(-.35,.35).slow(8)),
+
+
+  // 🌱 SEGUNDA MELODÍA — aparece poco a poco
+  note("e5 ~ g5 ~ a5 g5 e5 ~ d5 ~ e5 g5 ~ a5")
+    .s("triangle")
+    .slow(4)
+    .attack(.5)
+    .release(1)
+    .room(.9)
+    .gain(.11),
+
+
+  // ☀️ MELODÍA CÁLIDA — sensación de sol y primavera
+  note("g5 a5 b5 ~ a5 g5 e5 ~ g5 a5 c6 ~ b5 a5")
+    .s("sine")
+    .slow(6)
+    .attack(.7)
+    .release(1.5)
+    .room(1)
+    .gain(.08),
+
+
+  // ✨ REFLEJOS SOBRE EL AGUA
+  note("[c6 ~ e6] [g6 ~ a6] [e6 ~ g6] [b5 ~ e6]")
+    .s("kalimba")
+    .slow(4)
+    .delay(.7)
+    .room(1)
+    .gain(.07)
+    .pan(sine.range(-.6,.6).slow(8)),
+
+
+  // 🌬️ BRISA MARINA
+  s("~ hh ~ ~ hh ~ [hh hh] ~")
+    .gain(.055)
+    .lpf(3000)
+    .room(1),
+
+
+  // 🐚 PEQUEÑOS DESTELLOS
+  note("e6 ~ ~ g6 ~ a6 ~ ~")
+    .s("triangle")
+    .slow(3)
+    .delay(.8)
+    .room(1)
+    .gain(.05)
+)
+
+```
+
+INVIERNO:
+```js
+const ratchet = register('ratchet', (pat) => pat.sometimes(ply(2)))
+
+setcpm(65)
+
+arrange(
+
+  // ❄️ INTRO — Nieve cayendo
+  [4,
+    stack(
+
+      // Textura muy suave
+      s("~ ~ ~ ~")
+        .gain(0.08),
+
+      // Notas largas y profundas
+      note("<c3 ~ g2 ~>")
+        .slow(4)
+        .sound("sine")
+        .gain(0.18),
+
+      // Melodía cristalina
+      note("<e4 ~ d4 ~>")
+        .slow(4)
+        .sound("triangle")
+        .gain(0.15)
+    )
+  ],
+
+  // 🌨️ DESARROLLO — Paisaje invernal
+  [4,
+    stack(
+
+      // Pulso muy discreto
+      s("~ ~ bd ~")
+        .gain(0.12),
+
+      // Bajo profundo
+      note("<c2 ~ g1 ~>")
+        .slow(2)
+        .sound("sine")
+        .gain(0.22),
+
+      // Acordes / atmósfera
+      note("<c4 e4 g4 ~>")
+        .slow(4)
+        .sound("triangle")
+        .gain(0.16),
+
+      // Pequeñas notas como copos de nieve
+      note("e5 ~ ~ d5 ~ ~ g5 ~")
+        .slow(2)
+        .sound("sine")
+        .gain(0.12)
+    )
+  ],
+
+  // 🌙 NOCHE — Más profunda
+  [4,
+    stack(
+
+      // Pulso casi imperceptible
+      s("~ bd ~ ~")
+        .gain(0.10),
+
+      // Bajo
+      note("<c2 ~ g1 ~ a1 ~ e2 ~>")
+        .slow(2)
+        .sound("sine")
+        .gain(0.24),
+
+      // Melodía principal
+      note("<e4 g4 a4 g4 e4 d4 c4 ~>")
+        .slow(2)
+        .sound("triangle")
+        .gain(0.19),
+
+      // Notas agudas muy ocasionales
+      note("~ ~ c5 ~ ~ e5 ~ ~")
+        .slow(2)
+        .sound("sine")
+        .gain(0.10)
+    )
+  ],
+
+  // 🕯️ FINAL — La nieve se desvanece
+  [6,
+    stack(
+
+      // Solo una pulsación ocasional
+      s("~ ~ ~ bd")
+        .gain(0.07),
+
+      // Nota grave sostenida
+      note("<c2 ~ g1 ~>")
+        .slow(4)
+        .sound("sine")
+        .gain(0.16),
+
+      // Melodía final
+      note("<e4 ~ d4 ~ c4 ~ g3 ~>")
+        .slow(4)
+        .sound("triangle")
+        .gain(0.13)
+    )
+  ]
+)
+```
+
+OTOÑO:
+
+```js
+const ratchet = register('ratchet', (pat) => pat.sometimes(ply(2)))
+
+setcpm(75)
+
+arrange(
+
+  // 🍁 INTRO — Brisa fresca
+  [4,
+    stack(
+
+      s("~ ~ ~ ~")
+        .gain(0.08),
+
+      note("<d2 ~ a1 ~>")
+        .slow(4)
+        .sound("sine")
+        .gain(0.16),
+
+      note("<d4 ~ f4 ~>")
+        .slow(4)
+        .sound("triangle")
+        .gain(0.14),
+
+      note("~ a4 ~ ~")
+        .slow(4)
+        .sound("sine")
+        .gain(0.08),
+
+      // 🌊 Pequeño movimiento del agua
+      note("~ d5 ~ ~")
+        .slow(4)
+        .sound("sine")
+        .delay(0.4)
+        .gain(0.04)
+    )
+  ],
+
+  // 🌬️ CRECIMIENTO — El viento comienza
+  [4,
+    stack(
+
+      s("bd ~ ~ ~")
+        .gain(0.10),
+
+      note("<d2 ~ a1 ~>")
+        .slow(3)
+        .sound("sine")
+        .gain(0.18),
+
+      note("<d4 f4 ~ a4>")
+        .slow(4)
+        .sound("triangle")
+        .gain(0.16),
+
+      note("~ a4 ~ ~")
+        .slow(3)
+        .sound("sine")
+        .gain(0.09),
+
+      // 🍂 Brisa que empieza a moverse
+      note("d5 ~ f5 ~")
+        .slow(4)
+        .sound("sine")
+        .gain(0.05)
+        .room(0.6)
+    )
+  ],
+
+  // 🍂 RÁFAGA — Intensa pero lenta
+  [4,
+    stack(
+
+      s("bd ~ ~ ~")
+        .gain(0.16),
+
+      s("~ ~ sd ~")
+        .gain(0.12),
+
+      // Bajo con notas largas
+      note("<d2 ~ a1 ~>")
+        .slow(2)
+        .sound("sine")
+        .gain(0.21),
+
+      // Melodía lenta — SE MANTIENE
+      note("<d4 ~ f4 ~ a4 ~ c5 ~>")
+        .slow(3)
+        .sound("triangle")
+        .gain(0.20),
+
+      // Capa profunda
+      note("<a3 ~ f3 ~>")
+        .slow(4)
+        .sound("sine")
+        .gain(0.12),
+
+      // 🌊 Detalle de oleaje durante la ráfaga
+      note("a4 ~ c5 ~ d5 ~ c5 ~")
+        .slow(3)
+        .sound("sine")
+        .gain(0.06)
+        .delay(0.35)
+    )
+  ],
+
+  // 🌫️ TRANSICIÓN — El oleaje sigue después de la ráfaga
+  [2,
+    stack(
+
+      // El pulso desaparece lentamente
+      s("bd ~ ~ ~")
+        .gain(0.07),
+
+      note("<a3 ~ f3 ~>")
+        .slow(3)
+        .sound("sine")
+        .gain(0.09),
+
+      // 🍂 Últimas notas de la ráfaga
+      note("<a4 ~ c5 ~>")
+        .slow(3)
+        .sound("triangle")
+        .gain(0.10)
+        .room(0.8),
+
+      // 🌊 Eco que conecta con el descenso
+      note("d5 ~ a4 ~")
+        .slow(3)
+        .sound("sine")
+        .delay(0.6)
+        .gain(0.05)
+    )
+  ],
+
+  // 🌫️ DESCENSO — El viento desaparece
+  [4,
+    stack(
+
+      s("~ ~ ~ ~")
+        .gain(0.06),
+
+      note("<d2 ~ a1 ~>")
+        .slow(4)
+        .sound("sine")
+        .gain(0.15),
+
+      note("<f4 ~ e4 ~ d4 ~>")
+        .slow(4)
+        .sound("triangle")
+        .gain(0.13),
+
+      note("~ a4 ~ ~")
+        .slow(4)
+        .sound("sine")
+        .gain(0.07),
+
+      // 🌊 Oleaje que permanece
+      note("~ d5 ~ a4")
+        .slow(4)
+        .sound("sine")
+        .delay(0.5)
+        .gain(0.04)
+    )
+  ],
+
+  // 🌬️ SEGUNDA RÁFAGA — Movimiento lento
+  [4,
+    stack(
+
+      s("bd ~ ~ ~")
+        .gain(0.15),
+
+      s("~ ~ sd ~")
+        .gain(0.11),
+
+      note("<d2 ~ a1 ~>")
+        .slow(2)
+        .sound("sine")
+        .gain(0.19),
+
+      note("<d4 ~ f4 ~ a4 ~ f4 ~>")
+        .slow(3)
+        .sound("triangle")
+        .gain(0.18),
+
+      note("<a3 ~ c4 ~>")
+        .slow(4)
+        .sound("sine")
+        .gain(0.10),
+
+      // 🍂 Pequeña melodía adicional
+      note("a4 ~ c5 ~ d5 ~")
+        .slow(3)
+        .sound("sine")
+        .gain(0.06)
+        .delay(0.35)
+    )
+  ],
+
+  // 🌫️ TRANSICIÓN FINAL — La ráfaga se aleja
+  [2,
+    stack(
+
+      s("~ bd ~ ~")
+        .gain(0.06),
+
+      note("<a3 ~ f3 ~>")
+        .slow(3)
+        .sound("sine")
+        .gain(0.07),
+
+      note("d5 ~ c5 ~ a4 ~")
+        .slow(3)
+        .sound("triangle")
+        .gain(0.08)
+        .room(0.8),
+
+      note("f5 ~ d5 ~")
+        .slow(4)
+        .sound("sine")
+        .delay(0.7)
+        .gain(0.04)
+    )
+  ],
+
+  // 🍁 FINAL — Hojas cayendo
+  [4,
+    stack(
+
+      s("~ ~ ~ ~")
+        .gain(0.05),
+
+      note("<d2 ~ ~ ~>")
+        .slow(4)
+        .sound("sine")
+        .gain(0.12),
+
+      note("<f4 ~ e4 ~ d4 ~>")
+        .slow(4)
+        .sound("triangle")
+        .gain(0.10),
+
+      note("~ a4 ~ ~")
+        .slow(4)
+        .sound("sine")
+        .gain(0.06),
+
+      // 🍂 Último reflejo
+      note("d5 ~ ~ ~")
+        .slow(4)
+        .sound("sine")
+        .delay(0.8)
+        .gain(0.035)
+    )
+  ]
+)
+
+```
+
