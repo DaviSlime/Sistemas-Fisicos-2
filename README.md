@@ -1519,12 +1519,11 @@ arrange(
 ```js
 // ==========================================
 // 🎛️ CONTROLADOR DE ESTACIONES 
-// Cambia este número para elegir qué melodía suena:
 // 1 = Primavera 🌸 | 2 = Verano ☀️ | 3 = Otoño 🍂 | 4 = Invierno ❄️
 // ==========================================
-const estacion = 1; 
+const estacion = 2; 
 
-// Registramos tu función personalizada (se usa en otoño e invierno)
+// Función personalizada para otoño e invierno
 const ratchet = register('ratchet', (pat) => pat.sometimes(ply(2)));
 
 // ==========================================
@@ -1534,8 +1533,8 @@ const primavera = stack(
   note("<c4M d4m e4m f4M>")
     .s("triangle")
     .slow(8)
-    .room(0.8)
-    .lpf(1500)
+    .room(slider(1.2, 0.1, 1.5, 0.1)) // 🎚️ SLIDER: Eco de la primavera
+    .lpf(slider(1950, 500, 3000, 50)) // 🎚️ SLIDER: Brillo del acorde principal
     .gain(.30),
   note("[c5 e5 g5 a5]")
     .s("kalimba")
@@ -1585,7 +1584,7 @@ const primavera = stack(
 );
 
 // ==========================================
-// ☀️ 2. VERANO
+// ☀️️ 2. VERANO
 // ==========================================
 const verano = stack(
   note("<[c4,e4,g4,b4] [d4,f4,a4,c5]>")
@@ -1603,11 +1602,11 @@ const verano = stack(
   note("e2 e2 g2 a2 ~ a2 g2 e2 d2 d2 f2 a2 g2 e2")
     .s("sawtooth")
     .lpf(700)
-    .decay(.2)
+    .decay(slider(0.6, 0.05, 0.6, 0.05)) // 🎚️ SLIDER: Groove del bajo (más corto o más largo)
     .sustain(.35)
     .gain(.38),
   s("bd*4")
-    .gain(.8),
+    .gain(slider(1.3, 0.3, 1.5, 0.1)), // 🎚️ SLIDER: Fuerza del kick/bombo
   s("~ cp ~ cp ~ cp [cp cp] ~")
     .gain(.55),
   s("hh*8")
@@ -1682,7 +1681,8 @@ const otono = arrange(
     note("~ a4 ~ ~").slow(4).sound("sine").gain(0.06),
     note("d5 ~ ~ ~").slow(4).sound("sine").delay(0.8).gain(0.035)
   )]
-);
+).room(slider(0.5, 0.1, 1.5, 0.1)) // 🎚️ SLIDER: Eco general de todo el paisaje de otoño
+ .lpf(slider(2000, 500, 4000, 50)); // 🎚️ SLIDER: Filtro del viento (abre o cierra el sonido)
 
 // ==========================================
 // ❄️ 4. INVIERNO
@@ -1710,7 +1710,8 @@ const invierno = arrange(
     note("<c2 ~ g1 ~>").slow(4).sound("sine").gain(0.16),
     note("<e4 ~ d4 ~ c4 ~ g3 ~>").slow(4).sound("triangle").gain(0.13)
   )]
-);
+).room(slider(0.6, 0.1, 1.5, 0.1)) // 🎚️ SLIDER: Eco y sensación de espacio en la nieve
+ .gain(slider(1, 0.2, 1.5, 0.1));  // 🎚️ SLIDER: Volumen de intensidad de la tormenta
 
 // ==========================================
 // 🎧 LÓGICA DE REPRODUCCIÓN
@@ -1731,7 +1732,7 @@ if (estacion === 1) {
   pistaActual = invierno;
 }
 
-// Reproducimos la melodía que elegiste en la línea 6
+// Reproducimos la melodía
 pistaActual
 ```
 **https://www.youtube.com/watch?v=bBbyMkzTNpg&list=RDbBbyMkzTNpg&start_radio=1**
